@@ -20,6 +20,8 @@ CREATE TABLE STUDENT (
     student_address VARCHAR(50) NOT NULL,
     student_phone VARCHAR(20) NOT NULL,
     student_dob DATE NOT NULL,
+    student_username VARCHAR(20) NOT NULL,
+    student_password VARCHAR(20) NOT NULL,
     PRIMARY KEY (student_id)
 );
 
@@ -31,6 +33,8 @@ CREATE TABLE PROFESSOR (
     professor_phone VARCHAR(20) NOT NULL,
     professor_email VARCHAR(20) NOT NULL,
     professor_department INT NOT NULL,
+    professor_username VARCHAR(20) NOT NULL,
+    professor_password VARCHAR(20) NOT NULL,
     PRIMARY KEY (professor_id),
     FOREIGN KEY (professor_department) REFERENCES DEPARTMENT(department_id)
 );
@@ -65,51 +69,54 @@ CREATE TABLE SCHEDULE (
 );
 
 
-INSERT INTO DEPARTMENT VALUES(1, 'Computer Science');
-INSERT INTO DEPARTMENT VALUES(2, 'Mathematics');
-INSERT INTO DEPARTMENT VALUES(3, 'Physics');
+INSERT INTO DEPARTMENT VALUES
+(1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics');
 
-INSERT INTO STUDENT VALUES (1, "Alex", "Brown", "abrown1@gmail.com", "714 Hill Pl", "981-602-1942", "2005-2-25");
-INSERT INTO STUDENT VALUES (2, "Peter", "Anderson", "panderson2@gmail.com", "215 Pine Rd", "585-439-5893", "1995-9-28");
-INSERT INTO STUDENT VALUES (3, "Paul", "Taylor", "ptaylor3@yahoo.com", "645 Pine Ln", "146-323-6596", "1995-1-13");
-INSERT INTO STUDENT VALUES (4, "Peter", "Williams", "pwilliams4@outlook.com", "370 Oak Rd", "207-787-6410", "1995-12-27");
-INSERT INTO STUDENT VALUES (5, "Amber", "Smith", "asmith5@outlook.com", "355 Elm Dr", "227-450-1630", "1997-12-1");
-INSERT INTO STUDENT VALUES (6, "Paul", "Brown", "pbrown6@yahoo.com", "991 High Ln", "379-147-2074", "1995-8-23");
-INSERT INTO STUDENT VALUES (7, "Peter", "Williams", "pwilliams7@hotmail.com", "338 Main Pl", "986-109-2485", "2000-2-6");
-INSERT INTO STUDENT VALUES (8, "John", "Brown", "jbrown8@outlook.com", "258 High Way", "915-879-2397", "2002-10-7");
-INSERT INTO STUDENT VALUES (9, "Mary", "Williams", "mwilliams9@outlook.com", "89 Main Way", "357-131-5194", "2004-1-12");
-INSERT INTO STUDENT VALUES (10, "Alex", "Wilson", "awilson10@gmail.com", "678 Cedar Pl", "694-145-2719", "2003-6-2");
+INSERT INTO STUDENT VALUES
+(1, 'Mary', 'Taylor', '37 Oak Pl', '520-185-9383', 'mtayl1@gmail.com', 1995-4-5, 'mtay1', 'password'),
+(2, 'Thomas', 'Smith', '969 Elm Way', '932-543-8953', 'tsmit2@outlook.com', 1999-11-20, 'tsmi2', 'password'),
+(3, 'Thomas', 'Wilson', '472 Pine Ave', '804-953-5239', 'twils3@yahoo.com', 2005-8-8, 'twil3', 'password'),
+(4, 'John', 'Jones', '653 Cedar Pl', '284-826-4042', 'jjone4@gmail.com', 2001-9-17, 'jjon4', 'password'),
+(5, 'Mary', 'Brown', '29 Cedar Pl', '577-245-1588', 'mbrow5@hotmail.com', 2002-4-26, 'mbro5', 'password'),
+(6, 'Amber', 'Smith', '717 High Ln', '753-208-7368', 'asmit6@gmail.com', 2003-4-15, 'asmi6', 'password'),
+(7, 'Peter', 'Williams', '205 Hill Rd', '371-146-3599', 'pwill7@yahoo.com', 1997-10-11, 'pwil7', 'password'),
+(8, 'Matthew', 'Williams', '998 Main Dr', '856-914-4328', 'mwill8@outlook.com', 1999-6-1, 'mwil8', 'password'),
+(9, 'John', 'White', '890 Hill Ln', '772-571-1631', 'jwhit9@gmail.com', 2002-9-12, 'jwhi9', 'password'),
+(10, 'Peter', 'Martin', '799 Main Pl', '190-862-4045', 'pmart10@outlook.com', 1996-9-28, 'pmar10', 'password');
 
-INSERT INTO PROFESSOR VALUES (1, "Alex", "Jones", "ajones1@hotmail.com", "722 Hill Dr", "250-760-5182", 3);
-INSERT INTO PROFESSOR VALUES (2, "Thomas", "Martin", "tmartin2@yahoo.com", "6 Washington Pl", "391-482-4643", 1);
-INSERT INTO PROFESSOR VALUES (3, "Matthew", "Brown", "mbrown3@gmail.com", "62 Lake Blvd", "485-716-8023", 1);
+INSERT INTO PROFESSOR VALUES
+(1, 'Elizabeth', 'Smith', '387 Cedar Rd', '206-176-9309', 'esmit1@hotmail.com', 3, 'esmi1', 'password'),
+(2, 'Matthew', 'Brown', '249 Elm St', '426-545-6796', 'mbrow2@hotmail.com', 1, 'mbro2', 'password'),
+(3, 'John', 'Taylor', '939 Oak Way', '440-629-3825', 'jtayl3@yahoo.com', 1, 'jtay3', 'password');
 
-INSERT INTO COURSE VALUES (1, "Calculus I", 2, "9:00:00", "10:00:00", 101);
-INSERT INTO COURSE VALUES (2, "Modern Physics", 3, "10:00:00", "11:00:00", 102);
-INSERT INTO COURSE VALUES (3, "Java I", 1, "11:00:00", "12:00:00", 103);
-INSERT INTO COURSE VALUES (4, "Calculus II", 2, "11:00:00", "12:00:00", 101);
-INSERT INTO COURSE VALUES (5, "Modern Physics", 3, "12:00:00", "13:00:00", 102);
+INSERT INTO COURSE VALUES 
+(1, "Calculus I", 2, "9:00:00", "10:00:00", 101),
+(2, "Modern Physics", 3, "10:00:00", "11:00:00", 102),
+(3, "Java I", 1, "11:00:00", "12:00:00", 103),
+(4, "Calculus II", 2, "11:00:00", "12:00:00", 101),
+(5, "Modern Physics", 3, "12:00:00", "13:00:00", 102);
 
-INSERT INTO ENROLLMENT VALUES (1, 1, 1, "A");
-INSERT INTO ENROLLMENT VALUES (2, 2, 1, "B");
-INSERT INTO ENROLLMENT VALUES (3, 3, 5, "C");
-INSERT INTO ENROLLMENT VALUES (4, 4, 1, "D");
-INSERT INTO ENROLLMENT VALUES (5, 5, 1, "F");
-INSERT INTO ENROLLMENT VALUES (6, 6, 5, "A");
-INSERT INTO ENROLLMENT VALUES (7, 7, 1, "B");
-INSERT INTO ENROLLMENT VALUES (8, 8, 1, "C");
-INSERT INTO ENROLLMENT VALUES (9, 9, 1, "D");
-INSERT INTO ENROLLMENT VALUES (10, 10, 1, "F");
-INSERT INTO ENROLLMENT VALUES (11, 1, 3, "A");
-INSERT INTO ENROLLMENT VALUES (12, 2, 2, "B");
-INSERT INTO ENROLLMENT VALUES (13, 3, 2, "C");
-INSERT INTO ENROLLMENT VALUES (14, 4, 3, "D");
-INSERT INTO ENROLLMENT VALUES (15, 5, 3, "F");
-INSERT INTO ENROLLMENT VALUES (16, 6, 2, "A");
-INSERT INTO ENROLLMENT VALUES (17, 7, 3, "B");
-INSERT INTO ENROLLMENT VALUES (18, 8, 2, "C");
-INSERT INTO ENROLLMENT VALUES (19, 9, 2, "D");
-INSERT INTO ENROLLMENT VALUES (20, 10, 5, "F");
+INSERT INTO ENROLLMENT VALUES 
+(1, 1, 1, "A"),
+(2, 2, 1, "B"),
+(3, 3, 5, "C"),
+(4, 4, 1, "D"),
+(5, 5, 1, "F"),
+(6, 6, 5, "A"),
+(7, 7, 1, "B"),
+(8, 8, 1, "C"),
+(9, 9, 1, "D"),
+(10, 10, 1, "F"),
+(11, 1, 3, "A"),
+(12, 2, 2, "B"),
+(13, 3, 2, "C"),
+(14, 4, 3, "D"),
+(15, 5, 3, "F"),
+(16, 6, 2, "A"),
+(17, 7, 3, "B"),
+(18, 8, 2, "C"),
+(19, 9, 2, "D"),
+(20, 10, 5, "F");
 
 -- SCHEDULE TABLE from students.sql and enrollment.sql
 INSERT INTO SCHEDULE (student_id, course_id) 

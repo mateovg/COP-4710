@@ -1,15 +1,15 @@
-{% extends 'base.html' %} {% block content %}
-<h1>{% block title %} Welcome to ABC University {% endblock %}</h1>
-<div>
-  <h2>Login</h2>
-  <form method="POST" action="{{ url_for('login') }}">
-    <input type="text" name="username" placeholder="Username" />
-    <input type="password" name="password" placeholder="Password" />
-    <input type="submit" value="Login" />
-    <!-- register -->
-    <p>
-      <a href="{{ url_for('register') }}">Register</a>
-    </p>
-  </form>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ABC University</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to ABC University!</h2>
+      <br>
+      <p>Click <a href="/">here</a> to go home.</p>
+    </div>
+  </body>
+</html>
