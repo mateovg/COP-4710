@@ -1,15 +1,15 @@
 INSERT INTO STUDENT VALUES
-(1, 'Mary', 'Taylor', '37 Oak Pl', '520-185-9383', 'mtayl1@gmail.com', 1995-4-5, 'mtay1', 'password'),
-(2, 'Thomas', 'Smith', '969 Elm Way', '932-543-8953', 'tsmit2@outlook.com', 1999-11-20, 'tsmi2', 'password'),
-(3, 'Thomas', 'Wilson', '472 Pine Ave', '804-953-5239', 'twils3@yahoo.com', 2005-8-8, 'twil3', 'password'),
-(4, 'John', 'Jones', '653 Cedar Pl', '284-826-4042', 'jjone4@gmail.com', 2001-9-17, 'jjon4', 'password'),
-(5, 'Mary', 'Brown', '29 Cedar Pl', '577-245-1588', 'mbrow5@hotmail.com', 2002-4-26, 'mbro5', 'password'),
-(6, 'Amber', 'Smith', '717 High Ln', '753-208-7368', 'asmit6@gmail.com', 2003-4-15, 'asmi6', 'password'),
-(7, 'Peter', 'Williams', '205 Hill Rd', '371-146-3599', 'pwill7@yahoo.com', 1997-10-11, 'pwil7', 'password'),
-(8, 'Matthew', 'Williams', '998 Main Dr', '856-914-4328', 'mwill8@outlook.com', 1999-6-1, 'mwil8', 'password'),
-(9, 'John', 'White', '890 Hill Ln', '772-571-1631', 'jwhit9@gmail.com', 2002-9-12, 'jwhi9', 'password'),
-(10, 'Peter', 'Martin', '799 Main Pl', '190-862-4045', 'pmart10@outlook.com', 1996-9-28, 'pmar10', 'password');
+(1, 'Peter', 'Anderson', '431 High Blvd', '230-954-3899', 'pande1@hotmail.com', '1997-6-26', 'pand1', 'password'),
+(2, 'Paul', 'Brown', '487 High Ln', '301-433-3035', 'pbrow2@outlook.com', '2001-2-23', 'pbro2', 'password'),
+(3, 'Amber', 'Wilson', '833 Pine Cir', '401-333-4319', 'awils3@yahoo.com', '2004-10-14', 'awil3', 'password'),
+(4, 'Alex', 'Martin', '21 Pine Pl', '609-778-3049', 'amart4@outlook.com', '1997-6-25', 'amar4', 'password'),
+(5, 'John', 'Anderson', '31 Main Rd', '485-363-2362', 'jande5@gmail.com', '1999-5-14', 'jand5', 'password'),
+(6, 'Alex', 'Wilson', '562 Hill St', '187-130-3097', 'awils6@hotmail.com', '2002-10-21', 'awil6', 'password'),
+(7, 'Elizabeth', 'Brown', '265 Elm Way', '497-579-6352', 'ebrow7@outlook.com', '1995-6-15', 'ebro7', 'password'),
+(8, 'Mary', 'Smith', '406 Cedar Ave', '351-971-7360', 'msmit8@yahoo.com', '2005-5-28', 'msmi8', 'password'),
+(9, 'Mary', 'Williams', '231 Washington Ave', '103-357-2443', 'mwill9@yahoo.com', '2000-2-8', 'mwil9', 'password'),
+(10, 'Matthew', 'White', '50 Washington Ln', '942-475-2609', 'mwhit10@yahoo.com', '2000-10-2', 'mwhi10', 'password');
 INSERT INTO PROFESSOR VALUES
-(1, 'Elizabeth', 'Smith', '387 Cedar Rd', '206-176-9309', 'esmit1@hotmail.com', 3, 'esmi1', 'password'),
-(2, 'Matthew', 'Brown', '249 Elm St', '426-545-6796', 'mbrow2@hotmail.com', 1, 'mbro2', 'password'),
-(3, 'John', 'Taylor', '939 Oak Way', '440-629-3825', 'jtayl3@yahoo.com', 1, 'jtay3', 'password');
+(1, 'Matthew', 'White', '24 Main Pl', '223-205-2118', 'mwhit1@yahoo.com', 2, 'mwhi1', 'password'),
+(2, 'Mary', 'Martin', '332 Washington Ave', '737-655-6457', 'mmart2@gmail.com', 3, 'mmar2', 'password'),
+(3, 'Amber', 'Wilson', '76 Cedar Cir', '971-182-5709', 'awils3@yahoo.com', 1, 'awil3', 'password');

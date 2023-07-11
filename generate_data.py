@@ -14,57 +14,46 @@ STREET_TYPES = ['St', 'Ave', 'Blvd', 'Rd', 'Dr', 'Cir', 'Pl', 'Ln', 'Way']
 # random list of email provprof_iders
 EMAIL_PROVIDERS = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com']
 
-# CREATE TABLE STUDENT (
-#     student_prof_id INT NOT NULL,
-#     student_fname VARCHAR(20) NOT NULL,
-#     student_lname VARCHAR(20) NOT NULL,
-#     student_address VARCHAR(50) NOT NULL,
-#     student_phone VARCHAR(20) NOT NULL,
-#     student_email VARCHAR(20) NOT NULL,
-#     student_dob DATE NOT NULL,
-#     PRIMARY KEY (student_prof_id)
-# );
 
 # wrapper to add quotes to strings for sql
-
-
-def wrapper(func):
+def sql_format(func):
     def inner(*args):
         return "'" + func(*args) + "'"
     return inner
 
 
-@wrapper
+@sql_format
 def random_name():
     """ Return a random name from the NAMES list """
     return str(random.choice(NAMES))
 
 
-@wrapper
+@sql_format
 def random_last_name():
     """ Return a random last name from the LAST_NAMES list """
     return str(random.choice(LAST_NAMES))
 
 
-@wrapper
+@sql_format
 def random_address():
     """ Return a random address from the STREET_NAMES and STREET_TYPES list """
     return str(random.randint(1, 999)) + ' ' + random.choice(STREET_NAMES) + ' ' + random.choice(STREET_TYPES)
 
 
-@wrapper
+@sql_format
 def random_phone():
     """ Return a random phone number """
     return str(random.randint(100, 999)) + "-" + str(random.randint(100, 999)) + "-" + str(random.randint(1000, 9999))
 
 
-@wrapper
+@sql_format
 def random_email(name, last_name, prof_id):
     """ Return a random email address """
     return name.lower()[1] + last_name.lower()[1:5] + \
         str(prof_id) + "@" + random.choice(EMAIL_PROVIDERS)
 
 
+@sql_format
 def random_dob():
     """ Return a random date of birth """
     return str(random.randint(1995, 2005)) + '-' + str(random.randint(1, 12)) + '-' + str(random.randint(1, 28))

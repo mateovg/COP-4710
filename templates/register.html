@@ -1,0 +1,44 @@
+<!-- Register page for student  -->
+<!-- requires following info -->
+<!-- CREATE TABLE STUDENT (
+    student_id INT NOT NULL,
+    student_fname VARCHAR(20) NOT NULL,
+    student_lname VARCHAR(20) NOT NULL,
+    student_email VARCHAR(50) NOT NULL,
+    student_address VARCHAR(50) NOT NULL,
+    student_phone VARCHAR(20) NOT NULL,
+    student_dob DATE NOT NULL,
+    student_username VARCHAR(20) NOT NULL,
+    student_password VARCHAR(20) NOT NULL,
+    PRIMARY KEY (student_id)
+); -->
+<!--Store this code in 'register.html' file inside the 'templates' folder-->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> register </title>
+		<link rel="stylesheet" href="../static/style.css">
+	</head>
+	<body>
+		<div class="registercontent" align="center">
+			<div class="registertop">
+				<h1>Register</h1>
+			</div></br></br>
+			<div class="registerbottom">
+			<form action="{{ url_for('register')}}" method="post" autocomplete="off">
+			<div class="msg">{{ msg }}</div>
+			<input type="text" name="username" placeholder="Enter Your Username" class="textbox" id="username" required></br></br>
+			<input type="password" name="password" placeholder="Enter Your Password" class="textbox" id="password" required></br></br>
+			<input type="email" name="email" placeholder="Enter Your Email ID" class="textbox" id="email" required></br></br>
+			<input type="text" name="f_name" placeholder="Enter Your First Name" class="textbox" id="f_name" required></br></br>
+			<input type="text" name="l_name" placeholder="Enter Your Last Name" class="textbox" id="l_name" required></br></br>
+			<input type="text" name="address" placeholder="Enter Your Address" class="textbox" id="address" required></br></br>
+			<input type="text" name="phone" placeholder="Enter Your Phone" class="textbox" id="phone" required></br></br>
+			<input type="text" name="dob" placeholder="Enter Your Date of Birth" class="textbox" id="dob" required></br></br>
+			<input type="submit" class="btn" value="Register">
+			</form>
+			<p class="worddark">Already have account? <a class="worddark" href="{{ url_for('login')}}">Login here</a></p>
+			</div>
+		</div>
+	</body>
+</html>
