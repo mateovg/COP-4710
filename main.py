@@ -28,6 +28,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # correctly provides username and password
+    msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         # check if the username and password are correct
         user = request.form['username']
@@ -43,21 +44,24 @@ def login():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         # check if it's a student account
         cursor.execute(
-            'SELECT * FROM STUDENT WHERE student_username = %s AND student_password = %s', (
+            'SELECT student_id FROM STUDENT WHERE student_username = %s AND student_password = %s', (
                 user, password)
         )
         account = cursor.fetchone()
+        session['account_type'] = 'student' if account else None
+
         # if it's not a student account, check if it's a professor account
         if account is None:
             cursor.execute(
-                'SELECT * FROM PROFESSOR WHERE professor_username = %s AND professor_password = %s', (
+                'SELECT professor_id FROM PROFESSOR WHERE professor_username = %s AND professor_password = %s', (
                     user, password)
             )
             account = cursor.fetchone()
+            session['account_type'] = 'professor' if account else None
 
         if account:
             session['loggedin'] = True
-            session['username'] = account['username']
+            session['username'] = account['student_id']
             msg = 'Logged in successfully!'
             return redirect(url_for('index'), msg=msg)
         else:
@@ -112,6 +116,19 @@ def register():
 # page for students to view their grades/available classes
 @app.route('/student', methods=['GET', 'POST'])
 def student():
+    # show classes
+    if 'username' in session:
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute(
+            'SELECT course_name, grade \
+            FROM COURSE, \
+            ENROLLMENT WHERE student_id = %s AND COURSE.course_id = ENROLLMENT.course_id', (
+                session['student_id'])
+        )
+        classes = cursor.fetchall()
+        return render_template('student.html', classes=classes)
+
     return render_template('student.html')
 
 # page for professors to view the grades of students in their classes
