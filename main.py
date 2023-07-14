@@ -32,6 +32,7 @@ def login():
         return redirect(url_for('index'))
     msg = ''
     # correctly provides username and password
+    msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         # check if the username and password are correct
         user = request.form['username']

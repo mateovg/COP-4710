@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h1>Welcome to your Dashboard</h1>
+
+    <h2>Your Classes:</h2>
+    {% if classes %}
+    <table>
+      <tr>
+        <th>Class ID</th>
+        <th>Class Name</th>
+      </tr>
+      {% for class in classes %}
+      <tr>
+        <td>{{ class[0] }}</td>
+        <td>{{ class[1] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>No classes available.</p>
+    {% endif %}
+
+    <form action="/update_grades" method="POST">
+      <label>Class ID:</label>
+      <input type="text" name="class_id" required /><br />
+      <label>New Grade:</label>
+      <input type="text" name="new_grade" required /><br />
+      <input type="submit" value="Update Grades" />
+    </form>
+
+    <form action="/remove_classes" method="POST">
+      <label>Class ID:</label>
+      <input type="text" name="class_id" required /><br />
+      <input type="submit" value="Remove Classes" />
+    </form>
+
+    <form action="/add_classes" method="POST">
+      <label>Class Name:</label>
+      <input type="text" name="class_name" required /><br />
+      <input type="submit" value="Add Classes" />
+    </form>
+
+    <a href="/logout">Logout</a>
+  </body>
+</html>
