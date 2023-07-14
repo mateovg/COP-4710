@@ -13,7 +13,6 @@ config = {
 }
 
 cnx = mysql.connector.connect(**config)
-
 cursor = cnx.cursor()
 
 
@@ -31,9 +30,12 @@ def execute_sql_file(filename):
             print(ex)
 
 
-execute_sql_file(filename='schema.sql')
+def init_db():
+    execute_sql_file(filename='schema.sql')
+    cnx.commit()
 
-cnx.commit()
+
+init_db()
 
 cursor.close()
 cnx.close()

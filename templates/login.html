@@ -25,8 +25,13 @@
           request.form.password }}" />
         <input class="btn btn-default" type="submit" value="Login" />
       </form>
-      {% if error %}
-      <p class="error"><strong>Error:</strong> {{ error }} {% endif %}</p>
+      <!-- register link -->
+      <p>
+        Not registered?
+        <a href="{{ url_for('register') }}">Click here to register</a>.
+      </p>
+      {% if msg %}
+      <p class="error"><strong>Error:</strong> {{ msg }} {% endif %}</p>
     </div>
   </body>
 </html>

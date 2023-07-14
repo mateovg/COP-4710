@@ -29,13 +29,12 @@
 			<div class="msg">{{ msg }}</div>
 			<input type="text" name="username" placeholder="Enter Your Username" class="textbox" id="username" required></br></br>
 			<input type="password" name="password" placeholder="Enter Your Password" class="textbox" id="password" required></br></br>
-			<input type="email" name="email" placeholder="Enter Your Email ID" class="textbox" id="email" required></br></br>
-			<input type="text" name="f_name" placeholder="Enter Your First Name" class="textbox" id="f_name" required></br></br>
-			<input type="text" name="l_name" placeholder="Enter Your Last Name" class="textbox" id="l_name" required></br></br>
-			<input type="text" name="address" placeholder="Enter Your Address" class="textbox" id="address" required></br></br>
-			<input type="text" name="phone" placeholder="Enter Your Phone" class="textbox" id="phone" required></br></br>
-			<input type="text" name="dob" placeholder="Enter Your Date of Birth" class="textbox" id="dob" required></br></br>
+			<input type="text" name="fname" placeholder="Enter Your First Name" class="textbox" id="f_name" required></br></br>
+			<input type="text" name="lname" placeholder="Enter Your Last Name" class="textbox" id="l_name" required></br></br>
 			<input type="submit" class="btn" value="Register">
+			<!-- can only check one or the other -->
+			<input type="radio" name="user_type" value="student" checked> Student
+			<input type="radio" name="user_type" value="professor"> Professor
 			</form>
 			<p class="worddark">Already have account? <a class="worddark" href="{{ url_for('login')}}">Login here</a></p>
 			</div>
