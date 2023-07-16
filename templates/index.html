@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+{% extends 'base.html' %} {% block content %}
+<!-- <h1>{% block title %} Index {% endblock %}</h1> -->
+<h1>Welcome to ABC University!</h1>
+<p>Click <a href="/login">here</a> to login.</p>
+
+{% endblock %}
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title>ABC University</title>
@@ -7,42 +13,9 @@
   </head>
   <body>
     <div class="container">
-      <h1>Welcome to ABC University!</h2>
-      <br>
       <p>Click <a href="/login">here</a> to login.</p>
       <p>Click <a href="/register">here</a> to register.</p>
     </div>
-    <!-- buttons for view classes, update grades, delete class, add class -->
-    <!-- each button will execute a SQL query with Flask to do the action -->
-    <!-- view classes will display all classes for the student -->
-    <!-- update grades will allow the student to update their grades -->
-    <!-- delete class will allow the student to delete a class -->
-    <!-- add class will allow the student to add a class -->
-    <div class = "container">
-          <form action="/view_classes" method="GET">
-        <input type="submit" value="View Classes">
-    </form>
-    
-    <form action="/update_grades" method="POST">
-        <label>Class ID:</label>
-        <input type="text" name="class_id" required><br>
-        <label>New Grade:</label>
-        <input type="text" name="new_grade" required><br>
-        <input type="submit" value="Update Grades">
-    </form>
-    
-    <form action="/remove_classes" method="POST">
-        <label>Class ID:</label>
-        <input type="text" name="class_id" required><br>
-        <input type="submit" value="Remove Classes">
-    </form>
-    
-    <form action="/add_classes" method="POST">
-        <label>Class Name:</label>
-        <input type="text" name="class_name" required><br>
-        <input type="submit" value="Add Classes">
-    </form>
-    </div>
 
   </body>
-</html>
+</html> -->

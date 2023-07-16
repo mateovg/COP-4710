@@ -3,17 +3,7 @@ This script is used to create the database and tables for the ABC University
 database. It reads the schema.sql file and executes the commands in it.
 """
 
-import mysql.connector
-
-config = {
-    'user': 'root',
-    'password': 'root',
-    'host': '127.0.0.1',
-    'database': 'abcuniversity'
-}
-
-cnx = mysql.connector.connect(**config)
-cursor = cnx.cursor()
+import db
 
 
 def execute_sql_file(filename):
@@ -24,18 +14,15 @@ def execute_sql_file(filename):
     commands = sql_script.split(';')
     for command in commands:
         try:
-            cursor.execute(command)
+            db.execute_query(command)
         except Exception as ex:
             print("Command skipped: ", command)
             print(ex)
 
 
 def init_db():
-    execute_sql_file(filename='schema.sql')
-    cnx.commit()
+    execute_sql_file(filename='COP-4710\schema.sql')
+    db.connection.commit()
 
 
 init_db()
-
-cursor.close()
-cnx.close()

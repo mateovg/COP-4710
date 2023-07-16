@@ -1,49 +1,92 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Dashboard</title>
-  </head>
-  <body>
-    <h1>Welcome to your Dashboard</h1>
+<!-- extends base.html -->
+{% extends 'base.html' %} {% block title %} Student Dashboard {% endblock %} {%
+block content %}
+<body>
+  <h2>Welcome to your dashboard, {{ name }}</h2>
 
-    <h2>Your Classes:</h2>
-    {% if classes %}
-    <table>
-      <tr>
-        <th>Class ID</th>
-        <th>Class Name</th>
-      </tr>
-      {% for class in classes %}
-      <tr>
-        <td>{{ class[0] }}</td>
-        <td>{{ class[1] }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-    {% else %}
-    <p>No classes available.</p>
-    {% endif %}
+  <h3>Your Current Courses:</h3>
+  <!-- course_name, course_id, grade, start_time, end_time, room_number -->
+  <table class="table">
+    <tr>
+      <th>Course Name</th>
+      <th>Course ID</th>
+      <th>Grade</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Room Number</th>
+      <th>Drop Course</th>
+    </tr>
+    {% for course in grades %}
+    <tr>
+      <td>{{ course.course_name }}</td>
+      <td>{{ course.course_id }}</td>
+      <td>{{ course.grade }}</td>
+      <td>{{ course.start_time }}</td>
+      <td>{{ course.end_time }}</td>
+      <td>{{ course.room_number }}</td>
+      <!-- button to drop course -->
+      <td>
+        <form action="/drop_class" method="post">
+          <input
+            type="hidden"
+            name="course_id"
+            value="{{ course.course_id }}" />
+          <!-- <input type="submit" value="Drop Course" name="drop" /> -->
+          <button type="submit" class="btn btn-danger" name="drop">
+            Drop Course
+          </button>
+        </form>
+      </td>
+    </tr>
 
-    <form action="/update_grades" method="POST">
-      <label>Class ID:</label>
-      <input type="text" name="class_id" required /><br />
-      <label>New Grade:</label>
-      <input type="text" name="new_grade" required /><br />
-      <input type="submit" value="Update Grades" />
-    </form>
+    {% endfor %}
+  </table>
 
-    <form action="/remove_classes" method="POST">
-      <label>Class ID:</label>
-      <input type="text" name="class_id" required /><br />
-      <input type="submit" value="Remove Classes" />
-    </form>
+  <h3>Available Courses:</h3>
+  <!-- course_name, course_id, start_time, end_time, room_number -->
+  <table class="table">
+    <tr>
+      <th>Course Name</th>
+      <th>Course ID</th>
+      <th>Professor</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Room Number</th>
+      <th>Add Course</th>
+    </tr>
+    {% for course in courses %}
+    <tr>
+      <td>{{ course.course_name }}</td>
+      <td>{{ course.course_id }}</td>
+      <td>{{ course.professor_lname}}</td>
+      <td>{{ course.start_time }}</td>
+      <td>{{ course.end_time }}</td>
+      <td>{{ course.room_number }}</td>
+      <td>
+        <form action="/add_class" method="post">
+          <input
+            type="hidden"
+            name="course_id"
+            value="{{ course.course_id }}" />
+          <!-- <input type="submit" value="Add Course" name="add" /> -->
+          <button type="submit" class="btn btn-success" name="add">
+            Add Course
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
 
-    <form action="/add_classes" method="POST">
-      <label>Class Name:</label>
-      <input type="text" name="class_name" required /><br />
-      <input type="submit" value="Add Classes" />
-    </form>
+  <!-- add or drop course_id -->
+  <!-- <form action="/student" method="post">
+    <label for="course_id">Course ID:</label>
+    <input type="text" id="course_id" name="course_id" />
+    <input type="submit" value="Add Course" name="add" />
+    <input type="submit" value="Drop Course" name="drop" />
+  </form> -->
 
-    <a href="/logout">Logout</a>
-  </body>
-</html>
+  <a href="/logout">Logout</a>
+</body>
+
+{% endblock %}

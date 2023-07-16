@@ -1,43 +1,44 @@
-<!-- Register page for student  -->
-<!-- requires following info -->
-<!-- CREATE TABLE STUDENT (
-    student_id INT NOT NULL,
-    student_fname VARCHAR(20) NOT NULL,
-    student_lname VARCHAR(20) NOT NULL,
-    student_email VARCHAR(50) NOT NULL,
-    student_address VARCHAR(50) NOT NULL,
-    student_phone VARCHAR(20) NOT NULL,
-    student_dob DATE NOT NULL,
-    student_username VARCHAR(20) NOT NULL,
-    student_password VARCHAR(20) NOT NULL,
-    PRIMARY KEY (student_id)
-); -->
-<!--Store this code in 'register.html' file inside the 'templates' folder-->
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title> register </title>
-		<link rel="stylesheet" href="../static/style.css">
-	</head>
-	<body>
-		<div class="registercontent" align="center">
-			<div class="registertop">
-				<h1>Register</h1>
-			</div></br></br>
-			<div class="registerbottom">
-			<form action="{{ url_for('register')}}" method="post" autocomplete="off">
-			<div class="msg">{{ msg }}</div>
-			<input type="text" name="username" placeholder="Enter Your Username" class="textbox" id="username" required></br></br>
-			<input type="password" name="password" placeholder="Enter Your Password" class="textbox" id="password" required></br></br>
-			<input type="text" name="fname" placeholder="Enter Your First Name" class="textbox" id="f_name" required></br></br>
-			<input type="text" name="lname" placeholder="Enter Your Last Name" class="textbox" id="l_name" required></br></br>
-			<input type="submit" class="btn" value="Register">
-			<!-- can only check one or the other -->
-			<input type="radio" name="user_type" value="student" checked> Student
-			<input type="radio" name="user_type" value="professor"> Professor
-			</form>
-			<p class="worddark">Already have account? <a class="worddark" href="{{ url_for('login')}}">Login here</a></p>
-			</div>
-		</div>
-	</body>
-</html>
+{% extends 'base.html' %} {% block content %}
+<!-- <h1>{% block title %} Index {% endblock %}</h1> -->
+<h1>Register!</h1>
+
+<div class="registerbottom">
+  <form action="/register" method="post">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" class="form-control" id="username" name="username" />
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password" />
+    </div>
+    <div class="mb-3">
+      <label for="fname" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="fname" name="fname" />
+    </div>
+    <div class="mb-3">
+      <label for="lname" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="lname" name="lname" />
+    </div>
+    <div class="mb-3">
+      <label for="user_type" class="form-label">User Type</label>
+      <select class="form-control" id="user_type" name="user_type">
+        <option value="student">Student</option>
+        <option value="professor">Professor</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Register</button>
+  </form>
+
+  <p class="worddark">
+    Already have account?
+    <a class="worddark" href="{{ url_for('login')}}">Login here</a>
+  </p>
+</div>
+
+{% endblock %}

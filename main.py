@@ -1,68 +1,49 @@
 # from geeksforgeeks.org tutorial
 from flask import Flask, render_template, request, redirect, url_for, session
-import DatabaseHandler
+import db
 
 # create the application object
 app = Flask(__name__)
-
-
-class Session:
-    def __init__(self):
-        self.loggedin = False
-        self.username = ''
-        self.user_type = ''
-        self.account = ''
-        self.account_id = ''
-        self.db = DatabaseHandler.DatabaseHandler()
-
-
-session = Session()
+app.secret_key = 'super secret key'
 
 
 @app.route('/')
 def index():
-    if session.loggedin:
-        return redirect(url_for(session.user_type))
     return render_template('index.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if session.loggedin:
-        return redirect(url_for('index'))
     msg = ''
-    # correctly provides username and password
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+    if request.method == 'POST':
+        print(request.form)
         # check if the username and password are correct
         user = request.form['username']
         password = request.form['password']
+        user_type = db.attempt_login(user, password)
 
-        # query returns user_type, which is used to determine which page to redirect to
-        query = f"""
-        SELECT type FROM LOGIN WHERE username = '{user}' AND password = '{password}';
-        """
-        account = session.db.execute_sql_query(query).fetchone()
-
-        # correct credentials
-        if account:
-            session.loggedin = True
-            session.username = user
-            session.user_type = account[0]  # account[0] is the user_type
-
-            # get account info
-            query = f"""
-            SELECT * FROM {session.user_type} WHERE {session.user_type}_username = '{user}';
-            """
-            session.account = session.db.execute_sql_query(query).fetchone()
-            session.account_id = session.account[0]
-            msg = 'Logged in successfully!'
-            print(f"{msg} \n {session.account}")
-            return redirect(url_for('index'))
-        else:
+        if user_type == 'Invalid':
             msg = 'Incorrect username/password!'
+            return render_template('login.html', msg=msg)
+
+        else:
+            # if the username and password are correct, log the user in
+            session['account'] = db.get_account(user_type, user)
+            session['username'] = user
+            session['user_type'] = user_type
+            session['name'] = session['account'][f'{user_type}_fname'] + \
+                " " + session['account'][f'{user_type}_lname']
+            session['account_id'] = session['account'][f'{user_type}_id']
+
+            return redirect(url_for('dashboard'))
 
     return render_template('login.html', msg=msg)
+
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)  # removes username from session dict
+    return redirect(url_for('index'))
 
 
 # add new student to the database
@@ -76,72 +57,78 @@ def register():
         password = request.form['password']
         user_type = request.form['user_type']
 
-        # check if account already exists
-        query = f"""
-        SELECT * FROM LOGIN WHERE username = '{username}';
-        """
-        account = session.db.execute_sql_query(query).fetchone()
-        if account:
+        if db.account_exists(username):
             msg = 'Account already exists!'
             return render_template('register.html', msg=msg)
         # create the new account
         else:
-            query = f"""
-            INSERT INTO {user_type} ({user_type}_fname, {user_type}_lname, {user_type}_username, {user_type}_password)
-            VALUES ('{fname}', '{lname}', '{username}', '{password}');
-            """
-            session.db.execute_sql_query(query)
+            db.register_account(fname, lname, username, password, user_type)
             msg = 'Account created successfully! Please login.'
-            return render_template('login.html', msg=msg)
+            return redirect(url_for('login'))
     return render_template('register.html', msg=msg)
 
 
 # page for students to view their grades/available classes
-@app.route('/student', methods=['GET', 'POST'])
+@app.route('/student', methods=['GET'])
 def student():
-    # if not logged in, redirect to login page
-    if not session.loggedin:
+    if 'username' not in session:  # if not logged in, redirect to login page
         return redirect(url_for('login'))
-
     # show current courses and grades
-    grades = session.db.get_grades(session.user_type, session.account_id)
+    grades = db.get_grades(session['user_type'], session['account_id'])
     # show available courses
-    courses = session.db.get_courses(session.user_type, session.account_id)
+    courses = db.get_courses(session['user_type'], session['account_id'])
 
-    # student can add or drop courses
-
-    return render_template('student.html')
+    return render_template('student.html', grades=grades, courses=courses, name=session['name'])
 
 # page for professors to view the grades of students in their classes
 
 
 @app.route('/professor', methods=['GET', 'POST'])
 def professor():
-    # if not logged in, redirect to login page
-    if not session.loggedin:
+    if 'username' not in session:  # if not logged in, redirect to login page
         return redirect(url_for('login'))
-
     # show current courses and grades
-    grades = session.db.get_grades(session.user_type, session.account_id)
+    grades = db.get_grades(session['user_type'], session['account_id'])
 
-    # professor can update grades in courses
-
-    return render_template('professor.html')
+    return render_template('professor.html', grades=grades, name=session['name'])
 
 # page for admins to view all grades/available classes
 
 
-@app.route('/admin', methods=['GET', 'POST'])
-def admin():
-    grades = session.db.admin_view()
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    if 'username' not in session:  # if not logged in, redirect to login page
+        return redirect(url_for('login'))
 
-    # allow admin to add or drop courses
+    user_type = session['user_type']
+    return redirect(url_for(user_type))
 
-    # allow admin to add or drop students
 
-    # allow admin to edit grades
+@app.route('/drop_class', methods=['POST'])
+def drop_class():
+    course_id = request.form['course_id']
+    db.drop_course(session['account_id'], course_id)
 
-    return render_template('admin.html')
+    return redirect(url_for('student'))
+
+
+@app.route('/add_class', methods=['POST'])
+def add_class():
+    course_id = request.form['course_id']
+    db.add_course(session['account_id'], course_id)
+
+    return redirect(url_for('student'))
+
+
+@app.route('/update_grade', methods=['POST'])
+def update_grades():
+    course_id = request.form['course_id']
+    student_id = request.form['student_id']
+    new_grade = request.form['new_grade']
+
+    db.update_grade(student_id, course_id, new_grade)
+
+    return redirect(url_for('professor'))
 
 
 if __name__ == '__main__':
